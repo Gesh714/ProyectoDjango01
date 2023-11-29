@@ -1,0 +1,14 @@
+{% extends "base-html"%}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+
+{% else %}
+<div class="footer">
+    <a href="/login" class="btn btn-secondary">Iniciar sesion</a>
+    <a href="/" class="btn btn-secondary">Back</a>
+</div>
+
+{% endblock %}

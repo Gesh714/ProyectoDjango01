@@ -1,44 +1,58 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'inicio' %}">PROGECAP</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Quienes Somos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">Contacto</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Capacitaciones
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Revisa nuestras capacitaciones</a></li>
-              <li><a class="dropdown-item" href="#">Testimonios</a></li>
-              <li><a class="dropdown-item" href="#">Requisitos</a></li>
-              <li><a class="dropdown-item" href="#">SENCE</a></li>
-            </ul>
-          </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-          </li>
-          {% else %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Sign in
-            </a>      
-            <ul class="dropdown-menu">                        
-              <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>              
-              <li><a class="dropdown-item" href="{% url 'register' %}">Crear cuenta</a></li>
-            </ul>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'inicio' %}">PROGECAP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Quienes Somos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Contacto</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Capacitaciones
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Revisa nuestras capacitaciones</a></li>
+            <li><a class="dropdown-item" href="#">Testimonios</a></li>
+            <li><a class="dropdown-item" href="#">Requisitos</a></li>
+            <li><a class="dropdown-item" href="#">SENCE</a></li>
+          </ul>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Administracion
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'ver_cursos' %}">Ver registro de cursos</a></li>
+            <li><a class="dropdown-item" href="{% url 'ver_participantes' %}">Ver registro de participantes</a></li>
+            <li><a class="dropdown-item" href="{% url 'add_curso' %}">Carga manual de cursos</a></li>
+            <li><a class="dropdown-item" href="{% url 'cargar_cursos_plantilla' %}">Cargar plantilla de curso</a></li>
+            <li><a class="dropdown-item" href="{% url 'add_participante' %}">Carga manual de participantes</a></li>
+            <li><a class="dropdown-item" href="{% url 'cargar_participante_plantilla' %}">Cargar plantilla de participantes</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sign in
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+            <li><a class="dropdown-item" href="{% url 'register' %}">Crear cuenta</a></li>
+          </ul>
+        </li>
+        {% endif %}
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
