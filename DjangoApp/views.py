@@ -121,17 +121,21 @@ def delete_participante(request, pk):
 		return redirect('login')
 
 def add_participante(request):
-	form = AddParticipanteForm(request.POST or None)
-	if request.user.is_authenticated:
-		if request.method == "POST":
-			if form.is_valid():
-				add_participante = form.save()
-				messages.success(request, "Inscrito exitosamente...")
-				return redirect('ver_participantes')
-		return render(request, 'djangoapp/cargar_participante_manual.html', {'form':form})
-	else:
-		messages.success(request, "Debes iniciar sesion...")
-		return redirect('login')
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = AddParticipanteForm(request.POST, request.FILES)
+            if form.is_valid():
+                participante = form.save()
+                messages.success(request, "Inscrito exitosamente...")
+                return redirect('ver_participantes')
+            else:
+                print(form.errors)
+        else:
+            form = AddParticipanteForm()
+        return render(request, 'djangoapp/cargar_participante_manual.html', {'form': form})
+    else:
+        messages.success(request, "Debes iniciar sesión...")
+        return redirect('login')
 
 def update_curso(request, pk):
 	if request.user.is_authenticated:

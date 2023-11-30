@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from DjangoApp import views
 
@@ -19,3 +21,6 @@ urlpatterns = [
     path('update_curso/<int:pk>', views.update_curso, name='update_curso'),
     path('update_participante/<int:pk>', views.update_participante, name='update_participante'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

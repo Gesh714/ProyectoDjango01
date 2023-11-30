@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 from django import forms
 from .models import Cursos_inscritos, Inscritos
 
@@ -51,15 +52,44 @@ class AddParticipanteForm(forms.ModelForm):
 	rut = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Rut", "class":"form-control"}), label="")
 	fecha_nac = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"placeholder":"Fecha de Nac", "class":"form-control"}), label="")
 	genero = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Genero", "class":"form-control"}), label="")
-	img_ci_frontal = forms.FileField(required=True, widget=forms.widgets.FileInput(attrs={"class":"form-control"}), label="")
-	img_ci_posterior = forms.FileField(required=True, widget=forms.widgets.FileInput(attrs={"class":"form-control"}), label="")
-	rsh = forms.FileField(required=True, widget=forms.widgets.FileInput(attrs={"class":"form-control"}), label="")
+	img_ci_frontal = forms.FileField(
+		required=True,
+		widget=forms.widgets.FileInput(attrs={"class": "form-control"}),
+		label="",
+		error_messages={
+			'required': _('Por favor, carga la imagen frontal de la cédula.'),
+			'invalid': _('Formato de archivo no válido. Utiliza un formato de imagen.'),
+		}
+	)
+	img_ci_posterior = forms.FileField(
+		required=True,
+		widget=forms.widgets.FileInput(attrs={"class": "form-control"}),
+		label="",
+		error_messages={
+			'required': _('Por favor, carga la imagen posterior de la cédula.'),
+			'invalid': _('Formato de archivo no válido. Utiliza un formato de imagen.'),
+		}
+	)
+	rsh = forms.FileField(
+		required=True,
+		widget=forms.widgets.FileInput(attrs={"class": "form-control"}),
+		label="",
+		error_messages={
+			'required': _('Por favor, carga el documento RSH.'),
+			'invalid': _('Formato de archivo no válido. Utiliza un formato permitido.'),
+		}
+	)
 	direccion = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Direccion", "class":"form-control"}), label="")
 	comuna = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Comuna", "class":"form-control"}), label="")
 	region = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Region", "class":"form-control"}), label="")
 	telefono = forms.IntegerField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Telefono", "class":"form-control"}), label="")
-	curso = forms.ModelChoiceField(required=True, queryset=Cursos_inscritos.objects.all(), empty_label=None, widget=forms.widgets.ChoiceWidget(attrs={"class":"form-control"}), label="")
-
+	curso = forms.ModelChoiceField(
+        required=True,
+        queryset=Cursos_inscritos.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={"class": "form-control"}),  # Cambiado de ChoiceWidget a Select
+        label=""
+    )
 	class Meta:
 		model = Inscritos
 		fields = (

@@ -1,14 +1,84 @@
-{% extends "base-html"%}
+{% extends "djangoapp/base.html"%}
 
 {% block content %}
 
 {% if user.is_authenticated %}
 
+<div class="col-md-6 offset-md-3">
+    <h1>Agregar Participante</h1>
+    <br/>
+    
+    <form method="POST" action="{% url 'add_participante' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.nombre_completo_for_label }}">Nombre Completo</label>
+            {{ form.nombre_completo }}
+            {{ form.nombre_completo.errors }}
+        </div>
+    
+        <div class="form-group">
+            <label for="{{ form.rut_for_label }}">Rut</label>
+            {{ form.rut }}
+            {{ form.rut.errors }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.rut_for_label }}">Fecha de Nacimiento</label>
+            {{ form.fecha_nac }}
+            {{ form.fecha_nac.errors }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.genero_for_label }}">Genero</label>
+            {{ form.genero }}
+            {{ form.genero.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.direccion_for_label }}">Direccion</label>
+            {{ form.direccion }}
+            {{ form.direccion.errors }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.comuna_for_label }}">Comuna</label>
+            {{ form.comuna }}
+            {{ form.comuna.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.region_for_label }}">Region</label>
+            {{ form.region }}
+            {{ form.region.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.telefono_for_label }}">Telefono</label>
+            {{ form.telefono }}
+            {{ form.telefono.errors }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.curso_for_label }}">Elegir Curso</label>
+            {{ form.curso }}
+            {{ form.curso.errors }}
+        </div>
+        
+
+        <br/>
+        <button type="submit" class="btn btn-secondary">Agregar Participante</button>
+        <a href="{% url 'inicio' %}" class="btn btn-secondary">Back</a>
+    </form>
+    
+    
+</div>
 
 {% else %}
 <div class="footer">
     <a href="/login" class="btn btn-secondary">Iniciar sesion</a>
     <a href="/" class="btn btn-secondary">Back</a>
 </div>
+{% endif%}
 
 {% endblock %}
