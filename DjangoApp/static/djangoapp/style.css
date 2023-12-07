@@ -1,5 +1,76 @@
+body {
+    background-color: white;
+}
+
 .container-fluid {
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
-    justify-content: flex-end;
+}
+
+/* Estilos generales */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fff;
+    /* Color de fondo de la barra de navegación */
+}
+
+.navbar-brand img {
+    height: 9rem;
+    /* Altura del logo */
+    padding: 10px;
+}
+
+.navbar-links {
+    display: flex;
+}
+
+.nav {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-right: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #006bb4;
+}
+
+/* Estilos del menú desplegable */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    /* Color de fondo del menú desplegable */
+    box-shadow: 0 4px 8px rgba(253, 253, 253, 0.1);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    /* Color de fondo al pasar el mouse */
 }
