@@ -9,4 +9,23 @@
             });
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+    var btnVolverArriba = document.getElementById('btnVolverArriba');
+
+    // Muestra u oculta el botón de volver arriba según la posición de desplazamiento
+    window.onscroll = function() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            btnVolverArriba.style.display = "block";
+        } else {
+            btnVolverArriba.style.display = "none";
+        }
+    };
+
+    // Agrega el evento de clic para volver arriba
+    btnVolverArriba.addEventListener('click', function() {
+        document.body.scrollTop = 0; // Para navegadores que no sean Safari
+        document.documentElement.scrollTop = 0; // Para Safari
+    });
+});
 </script>
