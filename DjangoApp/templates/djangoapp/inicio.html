@@ -1,14 +1,12 @@
 {% extends "djangoapp/base.html" %}
 
 {% block content %}
-<div class="container-fluid">
-    <img src="https://www.diariopanorama.com/fotos/notas/2021/12/16/entrega-uniformes-401188-214015.jpg"
-        style="width: 100%;">
+<div class="container-section">
+    <img id="img_principal" src="https://www.diariopanorama.com/fotos/notas/2021/12/16/entrega-uniformes-401188-214015.jpg">
 </div>
 
-<div class="container-fluid" id="About">
-    <div style="display: flex; text-align: center; margin-top: 2rem; align-items: flex-start; flex-direction: column;">
-        <h2>About Us</h2>
+<div class="container-section" id="About">
+        <h2><strong>Un poco sobre nosotros...</strong></h2>
         <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
@@ -17,7 +15,6 @@
             Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
             Aldus PageMaker including versions of Lorem Ipsum.
         </p>
-    </div>
 </div>
 {% include "djangoapp/script.html" %}
 {% endblock %}
