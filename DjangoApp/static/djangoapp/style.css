@@ -1,38 +1,13 @@
 body {
-    background-color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: #006bb4;
 }
 
-.container-fluid {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-}
-
-.container-section {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    width: 100%;
-    padding: 2rem;
-}
-
-/* Estilos generales */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #fff;
-    /* Color de fondo de la barra de navegación */
-}
-
 .navbar-brand img {
     height: 9rem;
-    /* Altura del logo */
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 5em;
+    margin-top: 1.2em;
 }
 
 .navbar-links {
@@ -43,20 +18,25 @@ body {
     list-style: none;
     display: flex;
     margin: 0;
-    padding: 0;
+    padding: 0.8em;
+
 }
 
 .nav-item {
-    margin-right: 20px;
+    margin-right: 1.2em;
+    margin-left: 1.2em;
+    margin-top: 1.2em;
 }
 
 .nav-link {
     text-decoration: none;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: #006bb4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    font-size: 1.2em;
+
 }
 
-/* Estilos del menú desplegable */
 .dropdown {
     position: relative;
 }
@@ -67,7 +47,6 @@ body {
     top: 100%;
     left: 0;
     background-color: #fff;
-    /* Color de fondo del menú desplegable */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: 0.3s;
 }
@@ -85,29 +64,63 @@ body {
 
 .dropdown-item:hover {
     background-color: #f8f9fa;
-    /* Color de fondo al pasar el mouse */
 }
 
-#img_principal {
-    max-width: 100%;
-    width: 90%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.lineaDiv {
+    background: #A7D225;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #006bb4, #A7D225);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #006bb4, #A7D225); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    width: 100%;
+    height: 1.3em;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: 0.3s;
 }
 
-.container-section p {
+#img_principal,
+.img-zoom {
     max-width: 100%;
     width: 90%;
-    font-size: large;
-    line-height: 1.5em;
+    display: block;
     margin: 1.5em;
     padding: 0.8em;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    text-align: justify;
-    
+}
 
+.img-zoom:hover {
+    transform: scale(1.1);
+}
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container-section {
+    width: 100%;
+    height: 100%;
+    margin-left: 2em;
+}
+
+.container-section h2,p {
+    max-width: 100%;
+    width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    text-align: justify;
+}
+
+.container-section h2 {
+    font-size: 2.3rem;
+    font-weight: bolder;
+    padding: 1em;
+    margin: 0.8em;
+}
+
+.container-section p {
+    font-size: 1.2rem;
+    padding: 3.5em;
+    margin: 1.5em;
+    line-height: 2em;
+    font-weight: lighter;
 }
