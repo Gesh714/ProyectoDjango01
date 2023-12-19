@@ -32,7 +32,9 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle">Administracion</a>
                 <ul class="dropdown-menu">
+                    <li><a href="{% url 'login' %}" class="dropdown-item">Gestión de inscripciones</a></li>
                     <li><a href="{% url 'ver_cursos' %}" class="dropdown-item">Ver registro de cursos</a></li>
+                    <li><a href="{% url 'ver_participantes' %}" class="dropdown-item">Ver registro de participantes</a></li>
                     <!-- Otros elementos del menú de administración -->
                 </ul>
             </li>

@@ -1,7 +1,12 @@
 {% extends "djangoapp/base.html" %}
 
 {% block content %}
-
-
-
+<div>
+    <form action="{% url 'cargar_cursos_plantilla' %}" method="post" enctype="multipart/form-data">
+        <label for="archivo">Seleccione un archivo Excel:</label>
+        <input type="file" name="archivo" id="archivo" accept=".xls,.xlsx">
+        <br>
+        <input type="submit" value="Importar">
+    </form>
+</div>
 {% endblock %}

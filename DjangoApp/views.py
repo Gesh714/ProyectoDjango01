@@ -1,8 +1,9 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignUpForm, AddCursoForm, AddParticipanteForm
+from .forms import SignUpForm, AddCursoForm, AddParticipanteForm, UploadExcelCursoForm, UploadExcelParticipantesForm
 from .models import Cursos_inscritos, Inscritos
+import pandas as pd
 
 # Create your views here.
 def home(request):
@@ -52,12 +53,50 @@ def register_user(request):
 
 
 def cargarCursosPlantilla(request):
+	if request.method == 'POST':
+		form = UploadExcelCursoForm(request.POST, request.FILES)
+		if form.is_valid():
+			curso = form.save()
+			messages.success(request, "Inscrito exitosamente...")
+			return redirect('ver_cursos')
+		else:
+			print(form.errors)
+	else:
+		form = UploadExcelParticipantesForm()
 
-    return render(request, 'djangoapp/cargar_cursos_plantilla.html', {})
+	return render(request, 'djangoapp/cargar_cursos_plantilla.html', {'form': form})
 
 def cargarParticipantePlantilla(request):
+	if request.method == 'POST':
+		form = UploadExcelParticipantesForm(request.POST, request.FILES)
+		if form.is_valid():
+			excel_file = form.cleaned_data['file']
+			data = extraerDatos(excel_file)
+			# Aquí puedes utilizar la lista de diccionarios 'data' para llenar el formulario
+			# o realizar cualquier otra acción que necesites con los datos extraídos del archivo de Excel
+		
+	return render(request, 'djangoapp/cargar_participante_plantilla.html', {'form': form})
 
-    return render(request, 'djangoapp/cargar_participante_plantilla.html', {})
+def extraerDatos(excel_file):
+	# Lee el archivo de Excel y almacena el resultado en un DataFrame
+    df = pd.read_excel(excel_file)
+
+    # Extrae los datos que necesitas de la hoja de cálculo
+    data = []
+    for index, row in df.iterrows():
+        data.append({
+            'column1': row['Column1'],
+            'column2': row['Column2'],
+            'column3': row['Column3'],
+            'column4': row['column4'],
+            'column5': row['Column5'],
+            'column6': row['Column6'],
+            'column7': row['Column7'],
+            'column8': row['Column8'],
+            'column9': row['Column9'],
+        })
+
+    return data
 
 def verCursos(request):
     cursos = Cursos_inscritos.objects.all()
@@ -85,7 +124,6 @@ def delete_curso(request, pk):
 	else:
 		messages.success(request, "Debes iniciar sesion...")
 		return redirect('login')
-
 
 def add_curso(request):
 	form = AddCursoForm(request.POST or None)

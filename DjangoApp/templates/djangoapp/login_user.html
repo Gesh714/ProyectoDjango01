@@ -1,35 +1,40 @@
 {% extends 'djangoapp/base.html' %}
 
 {% block content %}
-<div class="col-md-6 offset-md-3">
+<div class="container-section">
 
 {% if user.is_authenticated %}
 
-<div class="container-fluid">
-    <a href="{% url 'cargar_cursos_plantilla' %}" class="btn">Cargar plantilla de curso</a>
-    <a href="{% url 'cargar_participante_plantilla' %}" class="btn">Cargar plantilla de participantes</a>
-    <a href="{% url 'add_curso' %}" class="btn">Cargar manualmente curso</a>
-    <a href="{% url 'add_participante' %}" class="btn">Cargar manualmente participante</a>
-    <a href="{% url 'ver_cursos' %}" class="btn">Ver registro de cursos</a>
-    <a href="{% url 'ver_participantes' %}" class="btn">Ver registro de participantes</a>
+<div class="container-section">
+    <ul>
+        <li><a href="{% url 'cargar_cursos_plantilla' %}" class="btn">Cargar plantilla de curso</a></li>
+        <li><a href="{% url 'cargar_participante_plantilla' %}" class="btn">Cargar plantilla de participantes</a></li>
+        <li><a href="{% url 'add_curso' %}" class="btn">Cargar manualmente curso</a></li>
+        <li><a href="{% url 'add_participante' %}" class="btn">Cargar manualmente participante</a></li>
+        <li><a href="{% url 'ver_cursos' %}" class="btn">Ver registro de cursos</a></li>
+        <li><a href="{% url 'ver_participantes' %}" class="btn">Ver registro de participantes</a></li>    
+    </ul>
+   
 </div>
 
 {% else %}
 
-<h1>Login</h1>    
-</br>
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Username</label>
-    <input type="text" class="form-control" name="Username" required>
-    </div>
-    <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" name="password" required>
-    </div>
-    <button type="submit" class="btn btn-secondary">Login</button>
-</form>
+<div class="container-section">
+    <h1>Login</h1>    
+    </br>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Username</label>
+        <input type="text" class="form-control" name="Username" required>
+        </div>
+        <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-secondary">Login</button>
+    </form>
+</div>
 </div>
 
 {% endif %}

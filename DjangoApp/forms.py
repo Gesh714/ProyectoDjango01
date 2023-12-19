@@ -50,59 +50,33 @@ class AddCursoForm(forms.ModelForm):
 class AddParticipanteForm(forms.ModelForm):
 	nombre_completo = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Nombre Participante", "class":"form-control"}), label="")
 	rut = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Rut", "class":"form-control"}), label="")
-	fecha_nac = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"placeholder":"Fecha de Nac", "class":"form-control"}), label="")
-	genero = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Genero", "class":"form-control"}), label="")
-	img_ci_frontal = forms.FileField(
-		required=True,
-		widget=forms.widgets.FileInput(attrs={"class": "form-control"}),
-		label="",
-		error_messages={
-			'required': _('Por favor, carga la imagen frontal de la cédula.'),
-			'invalid': _('Formato de archivo no válido. Utiliza un formato de imagen.'),
-		}
-	)
-	img_ci_posterior = forms.FileField(
-		required=True,
-		widget=forms.widgets.FileInput(attrs={"class": "form-control"}),
-		label="",
-		error_messages={
-			'required': _('Por favor, carga la imagen posterior de la cédula.'),
-			'invalid': _('Formato de archivo no válido. Utiliza un formato de imagen.'),
-		}
-	)
-	rsh = forms.FileField(
-		required=True,
-		widget=forms.widgets.FileInput(attrs={"class": "form-control"}),
-		label="",
-		error_messages={
-			'required': _('Por favor, carga el documento RSH.'),
-			'invalid': _('Formato de archivo no válido. Utiliza un formato permitido.'),
-		}
-	)
-	direccion = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Direccion", "class":"form-control"}), label="")
+	fecha_nac = forms.DateField(required=True, widget=forms.widgets.DateInput(attrs={"placeholder":"Fecha de Nacimiento", "class":"form-control"}), label="")
+	sexo = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Sexo", "class":"form-control"}), label="")
 	comuna = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Comuna", "class":"form-control"}), label="")
-	region = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Region", "class":"form-control"}), label="")
-	telefono = forms.IntegerField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Telefono", "class":"form-control"}), label="")
-	curso = forms.ModelChoiceField(
-        required=True,
-        queryset=Cursos_inscritos.objects.all(),
-        empty_label=None,
-        widget=forms.Select(attrs={"class": "form-control"}),  # Cambiado de ChoiceWidget a Select
-        label=""
-    )
+	escolaridad = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Escolaridad", "class":"form-control"}), label="")
+	pais_origen = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"País Origen", "class":"form-control"}), label="")
+	direccion = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Dirección", "class":"form-control"}), label="")
+	telefono = forms.IntegerField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Teléfono", "class":"form-control"}), label="")
+
 	class Meta:
 		model = Inscritos
 		fields = (
 			'nombre_completo',
 			'rut',
 			'fecha_nac',
-			'genero',
-			'img_ci_frontal',
-			'img_ci_posterior',
-			'rsh',
-			'direccion',
+			'sexo',
 			'comuna',
-			'region',
+			'escolaridad',
+			'pais_origen',
+			'direccion',
 			'telefono',
-			'curso',
 			)
+
+class UploadExcelParticipantesForm(forms.Form):
+    archivo_excel = forms.FileField()
+
+class UploadExcelCursoForm(forms.Form):
+    archivo_excel = forms.FileField()
+
+class UploadExcelRelatorForm(forms.Form):
+    archivo_excel = forms.FileField()

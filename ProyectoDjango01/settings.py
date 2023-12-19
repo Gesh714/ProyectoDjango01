@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DjangoApp.apps.DjangoappConfig',
-    'cargar_planillas',
 ]
 
 MIDDLEWARE = [
