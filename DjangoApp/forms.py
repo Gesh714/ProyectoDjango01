@@ -57,6 +57,7 @@ class AddParticipanteForm(forms.ModelForm):
 	pais_origen = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"País Origen", "class":"form-control"}), label="")
 	direccion = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Dirección", "class":"form-control"}), label="")
 	telefono = forms.IntegerField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Teléfono", "class":"form-control"}), label="")
+	curso = forms.ChoiceField()
 
 	class Meta:
 		model = Inscritos
@@ -73,7 +74,7 @@ class AddParticipanteForm(forms.ModelForm):
 			)
 
 class UploadExcelParticipantesForm(forms.Form):
-    archivo_excel = forms.FileField()
+    archivo_excel = forms.FileField(widget=forms.widgets.FileInput({"class":"form-control"}))
 
 class UploadExcelCursoForm(forms.Form):
     archivo_excel = forms.FileField()

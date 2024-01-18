@@ -30,18 +30,20 @@ class Cursos_inscritos(models.Model):
         return self.nombre_curso
     
 class Inscritos(models.Model):
-    nombre_completo = models.CharField(max_length=200)
-    rut = models.CharField(max_length=10)
-    fecha_nac = models.DateField()
-    genero = models.CharField(max_length=100)
-    img_ci_frontal = models.FileField(upload_to='archivos_participantes/', verbose_name='Imagen frontal del CI', name='img_field_frontal', error_messages="Sobrescribiendo")
-    img_ci_posterior = models.FileField(upload_to='archivos_participantes/', verbose_name='Imagen posterior del CI', name='img_field_posterior', error_messages="Sobrescribiendo")
-    rsh = models.FileField(upload_to='archivos_participantes/', verbose_name='Registro social de hogares', name='rsh', error_messages="Sobrescribiendo")
-    direccion = models.CharField(max_length=500)
-    comuna = models.CharField(max_length=200)
-    region = models.CharField(max_length=200)
-    telefono = models.IntegerField()
-    curso = models.ForeignKey(Cursos_inscritos,on_delete=models.CASCADE)
+    nombre_completo = models.CharField(max_length=200,null=True)
+    rut = models.CharField(max_length=10,null=True)
+    fecha_nac = models.DateField(null=True)
+    sexo = models.CharField(max_length=100,null=True)
+    img_ci_frontal = models.FileField(upload_to='archivos_participantes/', verbose_name='Imagen frontal del CI', name='img_field_frontal', error_messages="Sobrescribiendo",null=True)
+    img_ci_posterior = models.FileField(upload_to='archivos_participantes/', verbose_name='Imagen posterior del CI', name='img_field_posterior', error_messages="Sobrescribiendo",null=True)
+    rsh = models.FileField(upload_to='archivos_participantes/', verbose_name='Registro social de hogares', name='rsh', error_messages="Sobrescribiendo",null=True)
+    escolaridad = models.CharField(max_length=10, null=True)
+    pais_origen = models.CharField(max_length=80,null=True)
+    direccion = models.CharField(max_length=500,null=True)
+    comuna = models.CharField(max_length=200,null=True)
+    region = models.CharField(max_length=200,null=True)
+    telefono = models.IntegerField(null=True)
+    curso = models.ForeignKey(Cursos_inscritos,on_delete=models.CASCADE,null=True)
 
     def __str__(self) -> str:
         return self.nombre_completo

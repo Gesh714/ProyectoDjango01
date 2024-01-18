@@ -1,8 +1,10 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, AddCursoForm, AddParticipanteForm, UploadExcelCursoForm, UploadExcelParticipantesForm
 from .models import Cursos_inscritos, Inscritos
+from .utils import reemplazar_marcadores
+from docx import Document
 import pandas as pd
 
 # Create your views here.
@@ -67,34 +69,64 @@ def cargarCursosPlantilla(request):
 	return render(request, 'djangoapp/cargar_cursos_plantilla.html', {'form': form})
 
 def cargarParticipantePlantilla(request):
-	if request.method == 'POST':
-		form = UploadExcelParticipantesForm(request.POST, request.FILES)
-		if form.is_valid():
-			excel_file = form.cleaned_data['file']
-			data = extraerDatos(excel_file)
-			# Aquí puedes utilizar la lista de diccionarios 'data' para llenar el formulario
-			# o realizar cualquier otra acción que necesites con los datos extraídos del archivo de Excel
-		
-	return render(request, 'djangoapp/cargar_participante_plantilla.html', {'form': form})
+    # Verifica si el usuario está autenticado
+    if request.user.is_authenticated:
+        # Verifica si la solicitud es POST y si se ha adjuntado un archivo Excel
+        if request.method == 'POST' and request.FILES['archivo_excel']:
+            archivo_excel = request.FILES['archivo_excel']
+
+            try:
+                # Utiliza pandas para leer el archivo Excel
+                df = pd.read_excel(archivo_excel)
+
+                # Itera sobre las filas y guarda los datos en la base de datos
+                for _, row in df.iterrows():
+                    inscrito = Inscritos(
+                        nombre_completo = row['nombre completo'],
+						rut = row['rut'],  # Assuming 'RUT' is a numeric field in the Excel
+						fecha_nac = row['fecha de nacimiento'],
+						sexo = row['sexo'],
+						comuna = row['comuna'],
+						escolaridad = row['codigo escolaridad'],
+						pais_origen = row['pais origen'],
+						direccion = row['direccion'],
+						telefono = int(row['telefono']),
+                    )
+                    inscrito.save()
+
+                messages.success(request, 'Datos de inscritos cargados exitosamente.')
+                return redirect('pagina_exitosa')  # Redirige a una página de éxito
+
+            except Exception as e:
+                # Manejo de excepciones
+                messages.error(request, f'Error al cargar los datos: {e}')
+
+        return render(request, 'djangoapp/cargar_participante_plantilla.html', {})
+        
+    else:
+        # Si el usuario no está autenticado, redirige a la página de inicio de sesión
+        messages.success(request, "Debes iniciar sesión...")
+        return redirect('login')
 
 def extraerDatos(excel_file):
-	# Lee el archivo de Excel y almacena el resultado en un DataFrame
+    # Read the Excel file into a DataFrame
     df = pd.read_excel(excel_file)
 
-    # Extrae los datos que necesitas de la hoja de cálculo
+    # Extract participant data
     data = []
-    for index, row in df.iterrows():
-        data.append({
-            'column1': row['Column1'],
-            'column2': row['Column2'],
-            'column3': row['Column3'],
-            'column4': row['column4'],
-            'column5': row['Column5'],
-            'column6': row['Column6'],
-            'column7': row['Column7'],
-            'column8': row['Column8'],
-            'column9': row['Column9'],
-        })
+    for _, row in df.iterrows():
+        participant_data = {
+            'nombre_completo': row['Nombre Completo'],
+            'rut': row['RUT'],  # Assuming 'RUT' is a numeric field in the Excel
+            'fecha_nac': row['Fecha de Nacimiento'],
+            'sexo': row['Sexo'],
+            'comuna': row['Comuna'],
+            'escolaridad': row['Escolaridad'],
+            'pais_origen': row['País Origen'],
+            'direccion': row['Dirección'],
+            'telefono': int(row['Teléfono']),
+        }
+        data.append(participant_data)
 
     return data
 
@@ -200,3 +232,31 @@ def update_participante(request, pk):
 	else:
 		messages.success(request, "Debes iniciar sesion...")
 		return redirect('login')
+	
+def crear_documentos(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            # Aquí debes realizar la lógica para obtener los inscritos que deseas procesar
+            # Puedes obtener los IDs de los inscritos desde el formulario o cualquier otra fuente
+            lista_de_inscritos_a_procesar = [1, 2, 3]  # Ejemplo, reemplaza con tu lógica
+
+            # Ruta al documento original
+            ruta_documento_original = "documento_original.docx"
+
+            # Procesar cada inscrito
+            for inscrito_id in lista_de_inscritos_a_procesar:
+                try:
+                    # Llamada a la función para reemplazar marcadores
+                    reemplazar_marcadores(ruta_documento_original, inscrito_id)
+                    messages.success(request, f'Documento para inscrito {inscrito_id} creado exitosamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al crear documento para inscrito {inscrito_id}: {e}')
+
+            # Puedes redirigir a una página de éxito o renderizar la misma página con un mensaje
+            return render(request, 'djangoapp/crear_documentos.html', {'exito': True})
+
+        return render(request, 'djangoapp/crear_documentos.html', {})
+
+    else:
+        messages.success(request, "Debes iniciar sesión...")
+        return redirect('login')

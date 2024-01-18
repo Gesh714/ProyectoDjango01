@@ -20,6 +20,7 @@ urlpatterns = [
     path('add_participante/', views.add_participante, name='add_participante'),
     path('update_curso/<int:pk>', views.update_curso, name='update_curso'),
     path('update_participante/<int:pk>', views.update_participante, name='update_participante'),
+    path('crear_documentos/', views.crear_documentos, name='crear_documentos'),
 ]
 
 if settings.DEBUG:
